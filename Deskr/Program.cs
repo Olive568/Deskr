@@ -11,9 +11,10 @@ namespace Deskr
         static void Main(string[] args)
         {
           Display display = new Display();
-            Start();
-          display.Disp();
+          Start();
+          display.DispMain();
           Console.ReadKey();
+
         }
         static void Start()
         {
@@ -23,8 +24,33 @@ namespace Deskr
             Console.WriteLine("A. Create New Task");
             Console.WriteLine("B. Verify Task");
             Console.WriteLine("C. View Tasks");
-            Console.WriteLine("View Verification Status");
+            Console.WriteLine("D. View Verification Status");
+            string input = Console.ReadLine();
+            choice(input.ToUpper());
+        }
+        static void choice(string input)
+        {
+            if (input == "A")
+            {
 
+            }
+            else if (input == "B")
+            {
+
+            }
+            else if (input == "C")
+            {
+
+            }
+            else if (input == "D")
+            {
+
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid option.");
+                //Start();
+            }
         }
     }
 }
