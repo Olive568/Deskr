@@ -9,12 +9,9 @@ namespace Deskr
     internal class Program
     {
         static void Main(string[] args)
-        {
-          Display display = new Display();
-          Start();
-          display.DispMain();
+        { 
+          Start();       
           Console.ReadKey();
-
         }
         static void Start()
         {
@@ -25,11 +22,12 @@ namespace Deskr
             Console.WriteLine("B. Verify Task");
             Console.WriteLine("C. View Tasks");
             Console.WriteLine("D. View Verification Status");
-            string input = Console.ReadLine();
+            string input = Console.ReadLine().ToUpper();
             choice(input.ToUpper());
         }
         static void choice(string input)
         {
+            Display display = new Display();
             if (input == "A")
             {
 
@@ -40,11 +38,11 @@ namespace Deskr
             }
             else if (input == "C")
             {
-
+                display.DispMain();
             }
             else if (input == "D")
             {
-
+                display.DispVerify();
             }
             else
             {

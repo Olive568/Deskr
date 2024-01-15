@@ -64,7 +64,7 @@ namespace Deskr
             int count = 0;
             Console.Clear();
             Console.WriteLine("                                                \r\n                                                \r\n`7MM\"\"\"Yb.                   `7MM               \r\n  MM    `Yb.                   MM               \r\n  MM     `Mb  .gP\"Ya  ,pP\"Ybd  MM  ,MP'`7Mb,od8 \r\n  MM      MM ,M'   Yb 8I   `\"  MM ;Y     MM' \"' \r\n  MM     ,MP 8M\"\"\"\"\"\" `YMMMa.  MM;Mm     MM     \r\n  MM    ,dP' YM.    , L.   I8  MM `Mb.   MM     \r\n.JMMmmmdP'    `Mbmmd' M9mmmP'.JMML. YA..JMML.   \r\n                                                \r\n                                                ");
-            string fileName = "DeskrVerify.csv";
+            string fileName = "DeskrVerification.csv";
             using (StreamReader sr = new StreamReader(fileName))
             {
                 string[] splitter = new string[5];
@@ -72,7 +72,7 @@ namespace Deskr
                 while ((line = sr.ReadLine()) != null)
                 {
 
-                    for (int j = 0; j < 167; j++)
+                    for (int j = 0; j < 122; j++)
                     {
                         Console.Write("-");
                     }
@@ -103,7 +103,7 @@ namespace Deskr
                     }
                 }
                 Console.WriteLine();
-                for (int j = 0; j < 167; j++)
+                for (int j = 0; j < 122; j++)
                 {
                     Console.Write("-");
                 }
