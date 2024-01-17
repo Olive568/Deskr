@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +17,7 @@ namespace Deskr
             string name = Name();
             string task = Task();
             DateTime time = DateTime.Now;
+            string status = "In Progress";
             Console.ReadKey();
         }
 
@@ -54,6 +57,18 @@ namespace Deskr
                 {
                     return task;
                     break;
+                }
+            }
+        }
+        private void Add(string name, string task, DateTime time, string status) 
+        {
+            string line = "";
+            int count = 0;
+            using (StreamReader sr = new StreamReader("DeskrMain.csv"))
+            {
+                while ((line = sr.ReadLine()) != null)
+                {
+                    count++;
                 }
             }
         }
