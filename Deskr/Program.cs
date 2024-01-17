@@ -8,6 +8,8 @@ namespace Deskr
 {
     internal class Program
     {
+        public string mainfile = "DeskrMain.csv";
+        public string verificationfile = "DeskrVerification.csv";
         static void Main(string[] args)
         {
             Start();
