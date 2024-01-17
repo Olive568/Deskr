@@ -22,6 +22,7 @@ namespace Deskr
             Console.WriteLine("B. Verify Task");
             Console.WriteLine("C. View Tasks");
             Console.WriteLine("D. View Verification Status");
+            Console.WriteLine("E. End a task");
             string input = Console.ReadLine().ToUpper();
             choice(input.ToUpper());
         }
@@ -30,7 +31,8 @@ namespace Deskr
             Display display = new Display();
             if (input == "A")
             {
-
+                Create_Task Create = new Create_Task();
+                Create.Create();
             }
             else if (input == "B")
             {
@@ -39,16 +41,22 @@ namespace Deskr
             else if (input == "C")
             {
                 display.DispMain();
+                Console.ReadKey();
             }
             else if (input == "D")
             {
                 display.DispVerify();
+            }
+            else if(input == "E")
+            {
+
             }
             else
             {
                 Console.WriteLine("Please enter a valid option.");
                 //Start();
             }
+            Start(); 
         }
     }
 }
