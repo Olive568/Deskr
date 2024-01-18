@@ -44,7 +44,7 @@ namespace Deskr
             }
             else if (input == "C")
             {
-                display.DispMain();
+                display.DispMain(false);
                 Console.ReadKey();
             }
             else if (input == "D")
@@ -53,7 +53,8 @@ namespace Deskr
             }
             else if(input == "E")
             {
-
+                End_Task End = new End_Task();
+                End.Choose_task();
             }
             else
             {
