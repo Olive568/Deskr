@@ -22,9 +22,8 @@ namespace Deskr
             DateTime time = DateTime.Now;
             string status = "In Progress";
             database = Generate_Database();
-            int count = Count_Items() + 1;
+            int count = Count_Items();
             database = Add_Items(database, count,status,time,task,name);
-            Console.ReadKey();
         }
 
         private string Name()
@@ -90,7 +89,7 @@ namespace Deskr
                 while ((line = sr.ReadLine()) != null)
                 {
                     data = line.Split(',');
-                    database[count] = data;
+                    database.Add(data);
                     count++;
                 }
                 
@@ -113,22 +112,25 @@ namespace Deskr
         }
         private List<string[]> Add_Items(List<string[]> database, int count, string status, DateTime time, string task, string name)
         {
+            
             string time_string = time.ToString();
-            database[count][0] = name;
-            database[count][1] = task;
-            database[count][2] = time_string;
-            database[count][3] = "NULL";
-            database[count][4] = status;
-            database[count][5] = "NULL";
-            database[count][6] = "NULL";
+            string[] data = new string[7] { name, task, time_string, "NULL", status, "NULL", "NULL" };
+            database.Add(data);
+
             string filename = "DeskrMain.csv";
+           
             using (StreamWriter sw = new StreamWriter(filename))
             {
-                for (int i = 0; i < 7; i++)
+                for (int x = 0; x < database.Count; x++)
                 {
-                    if(i == 6)
-                        sw.Write(database[count][i]);
-                    sw.Write(database[count][i] + ",");
+                    for (int y = 0; y < 7; y++)
+                    {
+                        if (y == 6)
+                            sw.Write(database[x][y]);
+                        else
+                            sw.Write(database[x][y] + ",");
+                    }
+                    sw.WriteLine();
                 }
             }
             return database;

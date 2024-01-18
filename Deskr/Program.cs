@@ -28,9 +28,9 @@ namespace Deskr
             Console.WriteLine("D. View Verification Status");
             Console.WriteLine("E. End a task");
             string input = Console.ReadLine().ToUpper();
-            choice(input.ToUpper());
+            Choice(input.ToUpper());
         }
-        static void choice(string input)
+        static void Choice(string input)
         {
             Display display = new Display();
             if (input == "A")

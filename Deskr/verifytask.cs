@@ -16,12 +16,12 @@ namespace Deskr
             Console.WriteLine("What tasks would you like to verify?");
 
         }
-        public void filereader(string filename)
+        public void Filereader(string filename)
         {
 
         }
         
-        public void filewriter()
+        public void Filewriter()
         {
 
         }
