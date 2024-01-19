@@ -28,5 +28,22 @@ namespace Deskr
             }
             return database;
         }
+        public void Database_Write(List<string[]> database, string filename)
+        {
+            using(StreamWriter sw = new StreamWriter(filename))
+            {
+                for (int x =0; x < database.Count; x++) 
+                {
+                    for(int y =0; y < 7; y++)
+                    {
+                        if (y != 6)
+                            sw.Write(database[x][y] + ",");
+                        else
+                            sw.Write(database[x][y]);
+                    }
+                    sw.WriteLine();
+                }
+            }
+        }
     }
 }

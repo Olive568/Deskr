@@ -16,6 +16,10 @@ namespace Deskr
             List<string[]> database = DB.Create_Database();
             int index = Index(database.Count);
             string status = Status();
+            DateTime dateTime = DateTime.Now;
+            string time = DateTime.Now.ToString();
+            database = Change_Data(database,index , status, time);
+            DB.Database_Write(database, "DeskrMain.csv");
         }
 
         private int Index(int items)
@@ -54,6 +58,12 @@ namespace Deskr
         {
             Display display = new Display();
             display.DispMain(true);
+        }
+        private List<string[]> Change_Data(List<string[]> database, int index, string status, string time)
+        {
+            database[index][3] = time;
+            database[index][4] = status;
+            return database;
         }
     }
 }
