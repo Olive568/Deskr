@@ -15,6 +15,7 @@ namespace Deskr
     {
         public void Create()
         {
+            string filename = "DeskrMain.csv";
             Database DB = new Database();
             List<string[]> database = new List<string[]>();
             Console.Clear();
@@ -24,7 +25,10 @@ namespace Deskr
             string status = "In Progress";
             database = DB.Create_Database();
             int count = Count_Items();
-            database = Add_Items(database, count,status,time,task,name);
+            string time_string = time.ToString();
+            string[] data = new string[7] { name, task, time_string, "NULL", status, "NULL", "NULL" };
+            database.Add(data);
+            DB.Database_Write(database,filename);
         }
 
         private string Name()
@@ -91,31 +95,6 @@ namespace Deskr
                 }
             }
             return count;
-        }
-        private List<string[]> Add_Items(List<string[]> database, int count, string status, DateTime time, string task, string name)
-        {
-            
-            string time_string = time.ToString();
-            string[] data = new string[7] { name, task, time_string, "NULL", status, "NULL", "NULL" };
-            database.Add(data);
-
-            string filename = "DeskrMain.csv";
-           
-            using (StreamWriter sw = new StreamWriter(filename))
-            {
-                for (int x = 0; x < database.Count; x++)
-                {
-                    for (int y = 0; y < 7; y++)
-                    {
-                        if (y == 6)
-                            sw.Write(database[x][y]);
-                        else
-                            sw.Write(database[x][y] + ",");
-                    }
-                    sw.WriteLine();
-                }
-            }
-            return database;
         }
     }
 }
