@@ -15,13 +15,14 @@ namespace Deskr
     {
         public void Create()
         {
+            Database DB = new Database();
             List<string[]> database = new List<string[]>();
             Console.Clear();
             string name = Name();
             string task = Task();
             DateTime time = DateTime.Now;
             string status = "In Progress";
-            database = Generate_Database();
+            database = DB.Create_Database();
             int count = Count_Items();
             database = Add_Items(database, count,status,time,task,name);
         }
@@ -76,25 +77,6 @@ namespace Deskr
                     count++;
                 }
             }
-        }
-        private List<string[]> Generate_Database()
-        {
-            List<string[]> database = new List<string[]>();
-            int count = 0;
-            string fileName = "DeskrMain.csv";
-            using (StreamReader sr = new StreamReader(fileName))
-            {
-                string[] data = new string[7];
-                string line = "";
-                while ((line = sr.ReadLine()) != null)
-                {
-                    data = line.Split(',');
-                    database.Add(data);
-                    count++;
-                }
-                
-            }
-            return database;
         }
         private int Count_Items()
         {
