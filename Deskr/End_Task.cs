@@ -57,7 +57,7 @@ namespace Deskr
         private void Quick_Display()
         {
             Display display = new Display();
-            display.DispMain(true);
+            display.DispMain();
         }
         private List<string[]> Change_Data(List<string[]> database, int index, string status, string time)
         {

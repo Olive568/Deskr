@@ -40,16 +40,18 @@ namespace Deskr
             }
             else if (input == "B")
             {
-
+                display.DispMain();
+                Console.ReadKey();
             }
             else if (input == "C")
             {
-                display.DispMain(false);
+                display.DispMain();
                 Console.ReadKey();
             }
             else if (input == "D")
             {
                 display.DispVerify();
+                Console.ReadKey();
             }
             else if(input == "E")
             {

@@ -9,7 +9,7 @@ namespace Deskr
 {
     internal class Display
     {
-        public void DispMain(bool NULL)
+        public void DispMain()
         {
             int index = 0;
             int count = 0;
@@ -18,8 +18,6 @@ namespace Deskr
             string fileName = "DeskrMain.csv";
             using (StreamReader sr = new StreamReader(fileName))
             {
-                if(!NULL)
-                {
                     string[] splitter = new string[5];
                     string line = "";
                     while ((line = sr.ReadLine()) != null)
@@ -59,60 +57,10 @@ namespace Deskr
                     {
                         Console.Write("-");
                     }
-                }
-                else
-                {
-                    string[] splitter = new string[5];
-                    string line = "";
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        splitter = line.Split(',');
-                        if (splitter[3] == "NULL" || splitter[3] == "Task_Completion")
-                        {
-                            for (int j = 0; j < 167; j++)
-                            {
-                                Console.Write("-");
-                            }
-                            Console.WriteLine();
-
-                            count++;
-                            for (int i = 0; i < splitter.Length; i++)
-                            {
-                                Console.Write(splitter[i]);
-                                if (splitter[i].Length < 35)
-                                {
-                                    if (i != 4)
-                                    {
-                                        for (int len = splitter[i].Length; len < 24; len++)
-                                        {
-                                            Console.Write(' ');
-                                        }
-                                    }
-                                    else
-                                    {
-                                        for (int len = splitter[i].Length; len < 16; len++)
-                                        {
-                                            Console.Write(' ');
-                                        }
-                                    }
-                                    Console.Write("|");
-                                }
-                                
-                            }
-                            if (index > 0)
-                                Console.Write("  " + index);
-                            index++;
-                            Console.WriteLine();
-                            for (int j = 0; j < 167; j++)
-                            {
-                                Console.Write("-");
-                            }
-                            Console.WriteLine();
-                        }
-                        
-                    }
+                
+               
                       
-                }
+                
             }
         }
         public void DispVerify()
