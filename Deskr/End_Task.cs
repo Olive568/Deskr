@@ -24,13 +24,22 @@ namespace Deskr
 
         private int Index(int items)
         {
+            Database DB = new Database();
+            List<string[]> database = DB.Create_Database();
             Console.Clear();
             Quick_Display();
+            Console.WriteLine();
             Console.WriteLine("Pick a task to end. Write the number");
             int index = int.Parse(Console.ReadLine());
             if(index == 0 || index > items)
             {
                 Console.WriteLine("Invalid input. Wrong index");
+                Thread.Sleep(750);
+                Index(items);
+            }
+            else if (database[index][3] != "NULL")
+            {
+                Console.WriteLine("This task is already finished");
                 Thread.Sleep(750);
                 Index(items);
             }
