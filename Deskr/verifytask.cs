@@ -8,12 +8,13 @@ using System.IO;
 namespace Deskr
 {
 
-    internal class verifytask
+    internal class VerifyTask
     {
         Program p = new Program();
-        static List<string> s = new List<string>();
+        string[] data = new string[5];
+        string Filename = "DeskrVerification.csv";
         
-        public verifytask()
+        public void Verify()
         {
             //Console.WriteLine(" ______     ______     ______   __  __     __     ______        ______     ______     __    __     __  __     __         ______    \r\n/\\  ___\\   /\\  __ \\   /\\  == \\ /\\ \\_\\ \\   /\\ \\   /\\  __ \\      /\\  == \\   /\\  __ \\   /\\ \"-./  \\   /\\ \\/\\ \\   /\\ \\       /\\  __ \\   \r\n\\ \\___  \\  \\ \\ \\/\\ \\  \\ \\  _-/ \\ \\  __ \\  \\ \\ \\  \\ \\  __ \\     \\ \\  __<   \\ \\ \\/\\ \\  \\ \\ \\-./\\ \\  \\ \\ \\_\\ \\  \\ \\ \\____  \\ \\ \\/\\ \\  \r\n \\/\\_____\\  \\ \\_____\\  \\ \\_\\    \\ \\_\\ \\_\\  \\ \\_\\  \\ \\_\\ \\_\\     \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\ \\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\ \\_____\\ \r\n  \\/_____/   \\/_____/   \\/_/     \\/_/\\/_/   \\/_/   \\/_/\\/_/      \\/_/ /_/   \\/_____/   \\/_/  \\/_/   \\/_____/   \\/_____/   \\/_____/ \r\n                                                                                                                                   ");
             //return "hello";
@@ -22,11 +23,25 @@ namespace Deskr
         }
         public void gatherinfo()
         {
+            Display display= new Display();
+            Database DB = new Database();
+            List<string[]> database = DB.Create_Database(Filename, 5);
+            Console.Clear();
+            display.DispMain();
+            int index = 0;
+            int count = DB.Index_Count();
             DateTime dateTime = DateTime.Now;
+
             Console.WriteLine("What task would you like to verify?");
+            index = int.Parse(Console.ReadLine());
+            if (index > count || index == 0)
+            {
+                Console.WriteLine("That is not a valid index");
+                Console.ReadKey();
+                gatherinfo();
+            }
             Console.WriteLine("What is your name: ");
             string name = Console.ReadLine();
-            //s.Add(name);
             Console.WriteLine("Verification Status (1: Verified, 2: For Revision");
             int verification = int.Parse(Console.ReadLine());
             string status = verifystatus(verification);
@@ -36,28 +51,20 @@ namespace Deskr
             
             Console.WriteLine("Comments:");
             string comments = Console.ReadLine();
+            data[0] = name;
+            data[1] = DateTime.Now.ToString();
+            data[2] = status;
+            data[3] = details;
+            data[4] = comments;
+            database.Add(data);
+            Filewriter(database);
 
-            s.Add(name + "," + dateTime.ToString() + "," + status + "," + details + "," + comments);
-
-        }
-        public void Filereader()
-        {
-            using (StreamReader sr = new StreamReader(p.mainfile))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    Console.WriteLine(line);
-                }
-            }
         }
         
-        public void Filewriter(string input)
+        public void Filewriter(List<string[]> database)
         {
-            using (StreamWriter sw = new StreamWriter(p.verificationfile))
-            {
-                sw.WriteLine(input);
-            }
+            Database DB = new Database();
+            DB.Database_Write(database, "DeskrVerification.csv");
         }
 
         private string verifystatus(int choice)

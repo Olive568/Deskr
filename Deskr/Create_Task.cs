@@ -23,7 +23,7 @@ namespace Deskr
             string task = Task();
             DateTime time = DateTime.Now;
             string status = "In Progress";
-            database = DB.Create_Database();
+            database = DB.Create_Database(filename, 7);
             int count = Count_Items();
             string time_string = time.ToString();
             string[] data = new string[7] { name, task, time_string, "NULL", status, "NULL", "NULL" };
@@ -49,7 +49,6 @@ namespace Deskr
                     break;
                 }
             }
-
         }
         private string Task()
         {

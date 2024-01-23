@@ -10,10 +10,12 @@ namespace Deskr
 {
     internal class End_Task
     {
+        string Filename = "DeskrVerification.csv";
         public void Choose_task()
         {
+            
             Database DB = new Database();   
-            List<string[]> database = DB.Create_Database();
+            List<string[]> database = DB.Create_Database(Filename,7);
             int index = Index(database.Count);
             string status = Status();
             DateTime dateTime = DateTime.Now;
@@ -25,7 +27,7 @@ namespace Deskr
         private int Index(int items)
         {
             Database DB = new Database();
-            List<string[]> database = DB.Create_Database();
+            List<string[]> database = DB.Create_Database(Filename,7);
             Console.Clear();
             Quick_Display();
             Console.WriteLine();

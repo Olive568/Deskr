@@ -27,11 +27,11 @@ namespace Deskr
                         Console.Write("-");
                     }
                     Console.WriteLine();
-                    splitter = line.Split(',');                   
-                    if(count == 0)
+                    splitter = line.Split(',');
+                    if (count == 0)
                         Console.Write("   ");
                     else
-                    Console.Write(index + "  "); // Move this line before printing the line
+                        Console.Write(index + "  "); // Move this line before printing the line
                     index++;
                     for (int i = 0; i < splitter.Length; i++)
                     {
@@ -114,5 +114,7 @@ namespace Deskr
                 }
             }
         }
+
+        
     }
 }

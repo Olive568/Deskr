@@ -10,14 +10,13 @@ namespace Deskr
 {
     internal class Database
     {
-        public List<string[]> Create_Database()
+        public List<string[]> Create_Database(string filename, int index)
         {
             List<string[]> database = new List<string[]>();
             int count = 0;
-            string fileName = "DeskrMain.csv";
-            using (StreamReader sr = new StreamReader(fileName))
+            using (StreamReader sr = new StreamReader(filename))
             {
-                string[] data = new string[7];
+                string[] data = new string[index];
                 string line = "";
                 while ((line = sr.ReadLine()) != null)
                 {
@@ -34,9 +33,9 @@ namespace Deskr
             {
                 for (int x =0; x < database.Count; x++) 
                 {
-                    for(int y =0; y < 7; y++)
+                    for(int y =0; y < database[x].Length; y++)
                     {
-                        if (y != 6)
+                        if (y != database[x].Length - 1)
                             sw.Write(database[x][y] + ",");
                         else
                             sw.Write(database[x][y]);
@@ -44,6 +43,21 @@ namespace Deskr
                     sw.WriteLine();
                 }
             }
+        }
+        public int Index_Count()
+        {
+            List<string[]> database = new List<string[]>();
+            int count = 0;
+            string fileName = "DeskrMain.csv";
+            using (StreamReader sr = new StreamReader(fileName))
+            {
+                string line = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
     }
 }
