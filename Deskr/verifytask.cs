@@ -26,6 +26,7 @@ namespace Deskr
             Display display= new Display();
             Database DB = new Database();
             List<string[]> database = DB.Create_Database(Filename, 5);
+            List<string[]> databasemain = DB.Create_Database("DeskrMain.csv", 7);
             Console.Clear();
             display.DispMain();
             int index = 0;
@@ -40,8 +41,7 @@ namespace Deskr
                 Console.ReadKey();
                 gatherinfo();
             }
-            Console.WriteLine("What is your name: ");
-            string name = Console.ReadLine();
+            string name = index+"";
             Console.WriteLine("Verification Status (1: Verified, 2: For Revision");
             int verification = int.Parse(Console.ReadLine());
             string status = verifystatus(verification);
@@ -57,14 +57,18 @@ namespace Deskr
             data[3] = details;
             data[4] = comments;
             database.Add(data);
-            Filewriter(database);
+            databasemain[index][5] = comments;
+            databasemain[index][6] = index+"";
+            Filewriter(database,databasemain);
+          
 
         }
         
-        public void Filewriter(List<string[]> database)
+        public void Filewriter(List<string[]> database, List<string[]> database2)
         {
             Database DB = new Database();
             DB.Database_Write(database, "DeskrVerification.csv");
+            DB.Database_Write(database2, "DeskrMain.csv");
         }
 
         private string verifystatus(int choice)
