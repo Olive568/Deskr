@@ -32,7 +32,7 @@ namespace Deskr
             int index = 0;
             int count = DB.Index_Count();
             DateTime dateTime = DateTime.Now;
-
+            Console.WriteLine();
             Console.WriteLine("What task would you like to verify?");
             index = int.Parse(Console.ReadLine());
             if (index > count || index == 0)
