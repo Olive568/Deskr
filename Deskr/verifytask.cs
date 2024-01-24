@@ -26,17 +26,24 @@ namespace Deskr
             Display display= new Display();
             Database DB = new Database();
             List<string[]> database = DB.Create_Database(Filename, 5);
+            List<string[]> main = DB.Create_Database("DeskrMain.csv", 7);
             Console.Clear();
             display.DispMain();
             int index = 0;
             int count = DB.Index_Count();
             DateTime dateTime = DateTime.Now;
-
+            Console.WriteLine();
             Console.WriteLine("What task would you like to verify?");
             index = int.Parse(Console.ReadLine());
             if (index > count || index == 0)
             {
                 Console.WriteLine("That is not a valid index");
+                Console.ReadKey();
+                gatherinfo();
+            }
+            else if (main[index][3] == "NULL")
+            {
+                Console.WriteLine("Task is not complete");
                 Console.ReadKey();
                 gatherinfo();
             }
