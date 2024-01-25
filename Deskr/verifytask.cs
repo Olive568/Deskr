@@ -24,52 +24,56 @@ namespace Deskr
         public void gatherinfo()
         {
             string status = "";
-            Display display= new Display();
+            Display display = new Display();
+
             Console.WriteLine("");
             Console.WriteLine("Continue? Y/N");
             string choice = Console.ReadLine().ToUpper();
+
             switch (choice)
             {
                 case "Y":
-
                     break;
                 case "N":
                     return;
-                    break;
                 default:
                     gatherinfo();
-                    break;
+                    return;
             }
+
             Database DB = new Database();
             List<string[]> database = DB.Create_Database(Filename, 5);
             List<string[]> databasemain = DB.Create_Database("DeskrMain.csv", 7);
+
             Console.Clear();
             display.DispMain();
+
             int index = 0;
             int count = DB.Index_Count();
             DateTime dateTime = DateTime.Now;
+
             Console.WriteLine();
             Console.WriteLine("What task would you like to verify?");
-            index = int.Parse(Console.ReadLine());
-            if (index > count || index == 0)
+
+            // Handle user input for the index
+            while (!int.TryParse(Console.ReadLine(), out index) || index <= 0 || index > count)
             {
-                Console.WriteLine("That is not a valid index");
-                Console.ReadKey();
-                gatherinfo();
+                Console.WriteLine("Invalid input. Please enter a valid index.");
             }
-            else if (databasemain[index][3] == "NULL")
+
+            if (databasemain[index][3] == "NULL")
             {
                 Console.WriteLine("Task is not complete");
                 Console.ReadKey();
                 gatherinfo();
             }
-            else if (databasemain[index][4] == "Open" || databasemain[index][4] == "Closed"|| databasemain[index][4] == "Assigned")
+            else if (databasemain[index][4] == "Open" || databasemain[index][4] == "Closed" || databasemain[index][4] == "Assigned")
             {
-                Console.WriteLine("This Task can not be verified");
+                Console.WriteLine("This Task cannot be verified");
                 Console.ReadKey();
                 gatherinfo();
             }
-            else if(databasemain[index][4] == "For Verification")
+            else if (databasemain[index][4] == "For Verification")
             {
                 string name = index + "";
                 Console.WriteLine("Verification Status (1: Verified, 2: For Revision");
@@ -87,9 +91,8 @@ namespace Deskr
                 data[3] = details;
                 data[4] = comments;
                 database.Add(data);
- 
             }
-            else if(databasemain[index][4] == "For Revision")
+            else if (databasemain[index][4] == "For Revision")
             {
                 index = int.Parse(databasemain[index][6]);
                 string name = index + "";
@@ -108,17 +111,17 @@ namespace Deskr
                 data[3] = details;
                 data[4] = comments;
                 database[index] = data;
-
             }
+
             if (status == "Verified")
                 databasemain[index][4] = "Closed";
             else if (status == "For Revision")
                 databasemain[index][4] = status;
 
-            databasemain[index][6] = index + "";
+            databasemain[index][6] = index.ToString();
             Filewriter(database, databasemain);
         }
-        
+
         public void Filewriter(List<string[]> database, List<string[]> database2)
         {
             Database DB = new Database();

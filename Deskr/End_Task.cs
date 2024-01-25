@@ -47,12 +47,15 @@ namespace Deskr
             Console.Clear();
             Quick_Display();
             Console.WriteLine();
-            Console.WriteLine("Pick a task to end. Write the number");
-
-            int index;
-            bool isValidInput = int.TryParse(Console.ReadLine(), out index);
-
-            if (!isValidInput || index == 0 || index > items)
+            Console.WriteLine("Pick a task to end. Write the number. type N to end");
+            string choice = Console.ReadLine();
+            int index = 0;
+            bool isValidInput = int.TryParse(choice,out index);
+            if (choice == "N")
+            {
+                Choose_task();
+            }
+            else if (!isValidInput || index == 0 || index > items)
             {
                 Console.WriteLine("Invalid input. Please enter a valid number.");
                 Thread.Sleep(750);
@@ -64,6 +67,7 @@ namespace Deskr
                 Thread.Sleep(750);
                 Index(items);
             }
+         
 
             return index;
         }
