@@ -43,15 +43,18 @@ namespace Deskr
         private int Index(int items)
         {
             Database DB = new Database();
-            List<string[]> database = DB.Create_Database(Filename,7);
+            List<string[]> database = DB.Create_Database(Filename, 7);
             Console.Clear();
             Quick_Display();
             Console.WriteLine();
             Console.WriteLine("Pick a task to end. Write the number");
-            int index = int.Parse(Console.ReadLine());
-            if(index == 0 || index > items)
+
+            int index;
+            bool isValidInput = int.TryParse(Console.ReadLine(), out index);
+
+            if (!isValidInput || index == 0 || index > items)
             {
-                Console.WriteLine("Invalid input. Wrong index");
+                Console.WriteLine("Invalid input. Please enter a valid number.");
                 Thread.Sleep(750);
                 Index(items);
             }
@@ -61,6 +64,7 @@ namespace Deskr
                 Thread.Sleep(750);
                 Index(items);
             }
+
             return index;
         }
         private void Quick_Display()

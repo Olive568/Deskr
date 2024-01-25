@@ -35,43 +35,51 @@ namespace Deskr
         {
             bool cont = false;
             Program program = new Program();
-            Display display= new Display();
-            Console.Clear();
-            display.DispMain();
-            Console.WriteLine("Continue? Y/N");
-            string choice = Console.ReadLine().ToUpper();
-            switch (choice)
+            Display display = new Display();
+            do
             {
-                case "Y":
-                    Database DB = new Database();
-                    List<string[]> database = DB.Create_Database("DeskrMain.csv", 7);
-                    Console.WriteLine("Put the index of the task you will assign");
-                    int index = int.Parse(Console.ReadLine());
-                    if (index <= 0 || index > database.Count - 1)
-                    {
-                        Console.WriteLine("Invalid index, out of bounds");
+                Console.Clear();
+                display.DispMain();
+                Console.WriteLine("Continue? Y/N");
+                string choice = Console.ReadLine().ToUpper();
+
+                switch (choice)
+                {
+                    case "Y":
+                        Database DB = new Database();
+                        List<string[]> database = DB.Create_Database("DeskrMain.csv", 7);
+                        Console.WriteLine("Put the index of the task you will assign");
+                        int index;
+
+                        if (!int.TryParse(Console.ReadLine(), out index) || index <= 0 || index > database.Count - 1)
+                        {
+                            Console.WriteLine("Invalid index, out of bounds");
+                        }
+                        else if (database[index][0] != "NULL")
+                        {
+                            Console.WriteLine("Invalid index, already assigned");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter the name");
+                            string name = Console.ReadLine();
+                            database[index][0] = name;
+                            database[index][4] = "Assigned";
+                            DB.Database_Write(database, "DeskrMain.csv");
+                            cont = true;
+                        }
                         Console.ReadKey();
-                        Name();
-                    }
-                    else if (database[index][0] != "NULL")
-                    {
-                        Console.WriteLine("Invalid index, Already is assigned");
-                        Console.ReadKey();
-                        Name();
-                    }
-                    Console.WriteLine("Enter the name");
-                    string name = Console.ReadLine();
-                    database[index][0] = name;
-                    database[index][4] = "Assigned";
-                    DB.Database_Write(database, "DeskrMain.csv");
-                    break;
-                case "N":
-                    return;
-                    break;
-                default:
-                    Name();
-                    break;
-            }
+                        break;
+
+                    case "N":
+                        cont = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice. Please enter Y or N.");
+                        break;
+                }
+            } while (!cont);
         }
         private string Task()
         {
