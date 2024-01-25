@@ -23,6 +23,7 @@ namespace Deskr
         }
         public void gatherinfo()
         {
+            string status = "";
             Display display= new Display();
             Console.WriteLine("");
             Console.WriteLine("Continue? Y/N");
@@ -68,31 +69,54 @@ namespace Deskr
                 Console.ReadKey();
                 gatherinfo();
             }
-            string name = index+"";
-            Console.WriteLine("Verification Status (1: Verified, 2: For Revision");
-            int verification = int.Parse(Console.ReadLine());
-            string status = verifystatus(verification);
+            else if(databasemain[index][4] == "For Verification")
+            {
+                string name = index + "";
+                Console.WriteLine("Verification Status (1: Verified, 2: For Revision");
+                int verification = int.Parse(Console.ReadLine());
+                status = verifystatus(verification);
 
-            Console.WriteLine("Credentials: ");
-            string details = Console.ReadLine();
-            
-            Console.WriteLine("Comments:");
-            string comments = Console.ReadLine();
-            data[0] = name;
-            data[1] = DateTime.Now.ToString();
-            data[2] = status;
-            data[3] = details;
-            data[4] = comments;
-            database.Add(data);
+                Console.WriteLine("Credentials: ");
+                string details = Console.ReadLine();
+
+                Console.WriteLine("Comments:");
+                string comments = Console.ReadLine();
+                data[0] = name;
+                data[1] = DateTime.Now.ToString();
+                data[2] = status;
+                data[3] = details;
+                data[4] = comments;
+                database.Add(data);
+ 
+            }
+            else if(databasemain[index][4] == "For Revision")
+            {
+                index = int.Parse(databasemain[index][6]);
+                string name = index + "";
+                Console.WriteLine("Verification Status (1: Verified, 2: For Revision");
+                int verification = int.Parse(Console.ReadLine());
+                status = verifystatus(verification);
+
+                Console.WriteLine("Credentials: ");
+                string details = Console.ReadLine();
+
+                Console.WriteLine("Comments:");
+                string comments = Console.ReadLine();
+                data[0] = name;
+                data[1] = DateTime.Now.ToString();
+                data[2] = status;
+                data[3] = details;
+                data[4] = comments;
+                database[index] = data;
+
+            }
             if (status == "Verified")
                 databasemain[index][4] = "Closed";
             else if (status == "For Revision")
                 databasemain[index][4] = status;
 
-            databasemain[index][6] = index+"";
-            Filewriter(database,databasemain);
-          
-
+            databasemain[index][6] = index + "";
+            Filewriter(database, databasemain);
         }
         
         public void Filewriter(List<string[]> database, List<string[]> database2)
