@@ -13,7 +13,7 @@ namespace Deskr
         static void Main(string[] args)
         {
             Login login = new Login();
-            login.Run();
+            //login.Run();
             Start();
             //vt.execute();
             Console.ReadKey();
@@ -28,6 +28,7 @@ namespace Deskr
             Console.WriteLine("C. View Tasks");
             Console.WriteLine("D. View Verification Status");
             Console.WriteLine("E. End a task");
+            Console.WriteLine("F. Assign a task");
             string input = Console.ReadLine().ToUpper();
             Choice(input.ToUpper());
         }
@@ -36,8 +37,8 @@ namespace Deskr
             Display display = new Display();
             if (input == "A")
             {
-                Create_Task Create = new Create_Task();
-                Create.Create();
+                Create_Task create = new Create_Task();
+                create.Create();
             }
             else if (input == "B")
             {
@@ -61,6 +62,11 @@ namespace Deskr
             {
                 End_Task End = new End_Task();
                 End.Choose_task();
+            }
+            else if(input == "F")
+            {
+                Create_Task create = new Create_Task();
+                create.Name();
             }
             else
             {

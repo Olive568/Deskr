@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -19,10 +20,10 @@ namespace Deskr
             Database DB = new Database();
             List<string[]> database = new List<string[]>();
             Console.Clear();
-            string name = Name();
+            string name = "NULL";
             string task = Task();
             DateTime time = DateTime.Now;
-            string status = "In Progress";
+            string status = "Open";
             database = DB.Create_Database(filename, 7);
             int count = Count_Items();
             string time_string = time.ToString();
@@ -30,24 +31,46 @@ namespace Deskr
             database.Add(data);
             DB.Database_Write(database,filename);
         }
-
-        private string Name()
+        public void Name()
         {
-            string name = "";
-            while (true)
+            bool cont = false;
+            Program program = new Program();
+            Display display= new Display();
+            Console.Clear();
+            display.DispMain();
+            Console.WriteLine("Continue? Y/N");
+            string choice = Console.ReadLine().ToUpper();
+            switch (choice)
             {
-                Console.WriteLine("Write the name");
-                name = Console.ReadLine();
-                if (name.Length <= 0)
-                {
-                    Console.WriteLine("Invalid name");
-                    Thread.Sleep(750);
-                }
-                else
-                {
-                    return name;
+                case "Y":
+                    Database DB = new Database();
+                    List<string[]> database = DB.Create_Database("DeskrMain.csv", 7);
+                    Console.WriteLine("Put the index of the task you will assign");
+                    int index = int.Parse(Console.ReadLine());
+                    if (index <= 0 || index > database.Count - 1)
+                    {
+                        Console.WriteLine("Invalid index, out of bounds");
+                        Console.ReadKey();
+                        Name();
+                    }
+                    else if (database[index][0] != "NULL")
+                    {
+                        Console.WriteLine("Invalid index, Already is assigned");
+                        Console.ReadKey();
+                        Name();
+                    }
+                    Console.WriteLine("Enter the name");
+                    string name = Console.ReadLine();
+                    database[index][0] = name;
+                    database[index][4] = "Assigned";
+                    DB.Database_Write(database, "DeskrMain.csv");
                     break;
-                }
+                case "N":
+                    return;
+                    break;
+                default:
+                    Name();
+                    break;
             }
         }
         private string Task()

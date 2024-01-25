@@ -16,11 +16,27 @@ namespace Deskr
             
             Database DB = new Database();   
             List<string[]> database = DB.Create_Database(Filename,7);
+            Console.WriteLine("Continue? Y/N");
+            string choice = Console.ReadLine().ToUpper();
+            switch (choice)
+            {
+                case "Y":
+
+                    break;
+                case "N":
+                    return;
+                    break;
+                default:
+                    Choose_task();
+                    break;
+            }
             int index = Index(database.Count);
-            string status = Status();
+            string status = "For Verification";
             DateTime dateTime = DateTime.Now;
             string time = DateTime.Now.ToString();
-            database = Change_Data(database,index , status, time);
+            Console.WriteLine("Write your comment");
+            string comment = Console.ReadLine();
+            database = Change_Data(database,index , status, time,comment);
             DB.Database_Write(database, "DeskrMain.csv");
         }
 
@@ -47,33 +63,16 @@ namespace Deskr
             }
             return index;
         }
-        private string Status()
-        {
-            Console.Clear();
-            Console.WriteLine("Write 1 for Complete and 2 for incomeplete status");
-            int choice = int.Parse(Console.ReadLine());
-            string status = "";
-            if (choice == 1)
-                status = "complete";
-            else if (choice == 2) 
-                status = "Incomplete";
-            else 
-            {
-                Console.WriteLine("Only 1 or 2");
-                Thread.Sleep(500);
-                Status();
-            }
-            return status;
-        }
         private void Quick_Display()
         {
             Display display = new Display();
             display.DispMain();
         }
-        private List<string[]> Change_Data(List<string[]> database, int index, string status, string time)
+        private List<string[]> Change_Data(List<string[]> database, int index, string status, string time,string comment)
         {
             database[index][3] = time;
             database[index][4] = status;
+            database[index][5] = comment;
             return database;
         }
     }

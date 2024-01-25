@@ -24,6 +24,21 @@ namespace Deskr
         public void gatherinfo()
         {
             Display display= new Display();
+            Console.WriteLine("");
+            Console.WriteLine("Continue? Y/N");
+            string choice = Console.ReadLine().ToUpper();
+            switch (choice)
+            {
+                case "Y":
+
+                    break;
+                case "N":
+                    return;
+                    break;
+                default:
+                    gatherinfo();
+                    break;
+            }
             Database DB = new Database();
             List<string[]> database = DB.Create_Database(Filename, 5);
             List<string[]> databasemain = DB.Create_Database("DeskrMain.csv", 7);
@@ -38,6 +53,18 @@ namespace Deskr
             if (index > count || index == 0)
             {
                 Console.WriteLine("That is not a valid index");
+                Console.ReadKey();
+                gatherinfo();
+            }
+            else if (databasemain[index][3] == "NULL")
+            {
+                Console.WriteLine("Task is not complete");
+                Console.ReadKey();
+                gatherinfo();
+            }
+            else if (databasemain[index][4] == "Open" || databasemain[index][4] == "Closed"|| databasemain[index][4] == "Assigned")
+            {
+                Console.WriteLine("This Task can not be verified");
                 Console.ReadKey();
                 gatherinfo();
             }
@@ -57,7 +84,11 @@ namespace Deskr
             data[3] = details;
             data[4] = comments;
             database.Add(data);
-            databasemain[index][5] = comments;
+            if (status == "Verified")
+                databasemain[index][4] = "Closed";
+            else if (status == "For Revision")
+                databasemain[index][4] = status;
+
             databasemain[index][6] = index+"";
             Filewriter(database,databasemain);
           
